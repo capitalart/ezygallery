@@ -1,0 +1,43 @@
+[2025-07-11 02:26:56] 🎨 Generating EzyGallery Total Nuclear Snapshot (v2.2)...
+[2025-07-11 02:26:56] 📁 Created report folder: reports/REPORTS-11-JUL-2025-02-26AM
+[2025-07-11 02:26:56] 📄 Including file: config.py
+[2025-07-11 02:26:56] 📄 Including file: git-update-push.sh
+[2025-07-11 02:26:56] 📄 Including file: ezygallery-total-rundown.py
+[2025-07-11 02:26:56] 📄 Including file: requirements.txt
+[2025-07-11 02:26:56] 📄 Including file: ezy.py
+[2025-07-11 02:26:56] 📄 Including file: setup_ezygallery_pro.sh
+[2025-07-11 02:26:56] 📄 Including file: templates/main.html
+[2025-07-11 02:26:56] 📄 Including file: templates/auth/login.html
+[2025-07-11 02:26:56] 📄 Including file: templates/gallery/gallery_home.html
+[2025-07-11 02:26:56] 📄 Including file: templates/marketplace/marketplace_home.html
+[2025-07-11 02:26:56] 📄 Including file: templates/components/header.html
+[2025-07-11 02:26:56] 📄 Including file: templates/admin/admin_home.html
+[2025-07-11 02:26:56] 📄 Including file: routes/gallery.py
+[2025-07-11 02:26:56] 📄 Including file: routes/auth.py
+[2025-07-11 02:26:56] 📄 Including file: routes/admin.py
+[2025-07-11 02:26:56] 📄 Including file: routes/marketplace.py
+[2025-07-11 02:26:56] 📄 Including file: static/css/theme.css
+[2025-07-11 02:26:56] 📄 Including file: static/css/components.css
+[2025-07-11 02:26:56] 📄 Including file: static/css/layout.css
+[2025-07-11 02:26:56] 📄 Including file: static/css/sidebar.css
+[2025-07-11 02:26:56] 📄 Including file: static/css/base.css
+[2025-07-11 02:26:56] 📄 Including file: static/js/base.js
+[2025-07-11 02:26:56] ✅ Code snapshot saved to: reports/REPORTS-11-JUL-2025-02-26AM/report_code_snapshot_reports-11-jul-2025-02-26am.md
+[2025-07-11 02:26:56] 📋 File summary written to: reports/REPORTS-11-JUL-2025-02-26AM/file_summary.md
+[2025-07-11 02:26:56] 
+🧪 Validating Python syntax...
+[2025-07-11 02:26:56] ✅ config.py
+[2025-07-11 02:26:56] ✅ ezygallery-total-rundown.py
+[2025-07-11 02:26:56] ✅ ezy.py
+[2025-07-11 02:26:56] ✅ routes/gallery.py
+[2025-07-11 02:26:56] ✅ routes/auth.py
+[2025-07-11 02:26:56] ✅ routes/admin.py
+[2025-07-11 02:26:56] ✅ routes/marketplace.py
+[2025-07-11 02:26:56] 📚 Environment metadata saved to: reports/REPORTS-11-JUL-2025-02-26AM/env_metadata.txt
+[2025-07-11 02:26:56] 📘 Git snapshot written to: reports/REPORTS-11-JUL-2025-02-26AM/git_snapshot.txt
+[2025-07-11 02:26:56] 
+🔍 Running pip check...
+[2025-07-11 02:26:56] 
+📦 Outdated packages:
+[2025-07-11 02:26:59] 📦 Report zipped to: reports/REPORTS-11-JUL-2025-02-26AM.zip
+[2025-07-11 02:26:59] ✅ Snapshot complete. All systems green, Robbie! 💚
