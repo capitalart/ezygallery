@@ -1,5 +1,78 @@
-venv/
+cat <<EOL > .gitignore
+# === Python bytecode ===
 __pycache__/
-*.pyc
-.env
+*.py[cod]
+*$py.class
+
+# === Virtualenv ===
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# === Flask & Build Stuff ===
+instance/
+.webassets-cache
+*.egg-info/
+.eggs/
+build/
+dist/
+*.egg
+*.manifest
+*.spec
+*.log
+
+# === Editor & IDE ===
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# === OS-specific ===
+.DS_Store
+Thumbs.db
+
+# === Project Folders ===
 logs/
+backups/
+reports/
+node_modules/
+
+# === Tests & Coverage ===
+.coverage
+*.cover
+*.pycover
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+
+# === Misc Dev Tools ===
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.cache/
+.pdm-python
+.ruff_cache/
+
+# === Security/Env ===
+.env
+.env.*
+.secret
+
+# === Git itself ===
+*.orig
+
+# === EzyGallery extras ===
+# (custom folders for your project, add/remove as needed)
+outputs/
+inputs/
+codex-prompts/
+git-update-push-logs/
+EOL
