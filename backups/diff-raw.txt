@@ -1,4 +1,2 @@
-M	.gitignore
 M	backups/backup-diff-REPORT.md
 M	backups/diff-raw.txt
-M	git-update-push-logs/git-update-push-2025-07-11-02-31-AM.log
