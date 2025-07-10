@@ -1,0 +1,16 @@
+[2025-07-11 02:26:55] === 🟢 EzyGallery Git + Backup Script Started ===
+[2025-07-11 02:26:55] 📂 Checking git status...
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   requirements.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	ezygallery-total-rundown.py
+	git-update-push-logs/
+	git-update-push.sh
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[2025-07-11 02:26:55] ➕ Staging all changes...
