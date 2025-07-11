@@ -1,3 +1,3 @@
-import os
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'changeme'
+    SECRET_KEY = 'change-me'
+    FORCE_NOCACHE = False
