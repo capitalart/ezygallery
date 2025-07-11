@@ -4,8 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>EzyGallery</title>
+    <link rel="stylesheet" href="{{ static_url('css/theme.css') }}">
 </head>
 <body>
+    {% include 'components/header.html' %}
     {% block content %}{% endblock %}
+    <script src="{{ static_url('js/base.js') }}"></script>
 </body>
 </html>
