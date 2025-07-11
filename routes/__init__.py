@@ -13,6 +13,7 @@ def register_blueprints(app):
     from .account import account_bp as acb
     from .search import search_bp as sb
     from .info import info_bp as ib
+    from .accessibility import accessibility_bp as acb2
 
     app.register_blueprint(hb)
     app.register_blueprint(gb)
@@ -24,3 +25,4 @@ def register_blueprints(app):
     app.register_blueprint(acb)
     app.register_blueprint(sb)
     app.register_blueprint(ib)
+    app.register_blueprint(acb2)
