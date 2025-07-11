@@ -37,7 +37,6 @@ Thumbs.db
 # === Project Folders ===
 logs/
 backups/
-reports/
 node_modules/
 
 # === Tests & Coverage ===
@@ -70,9 +69,11 @@ pip-delete-this-directory.txt
 *.orig
 
 # === EzyGallery extras ===
-# (custom folders for your project, add/remove as needed)
 outputs/
 inputs/
 codex-prompts/
-git-update-push-logs/
+
+# ✅ Reports and Git logs ARE INCLUDED so Codex can reference them
+# ✅ Leave out git-update-push-logs/ and reports/ ONLY IF you prefer local
+#    But for Codex, we include them in version control
 EOL
