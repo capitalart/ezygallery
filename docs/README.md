@@ -1,0 +1,3 @@
+# EzyGallery Documentation
+
+Placeholder documentation.
