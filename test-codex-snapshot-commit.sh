@@ -24,8 +24,10 @@ cat <<EOF > templates/about.html
 EOF
 
 echo "📝 Updating ezy.py with Codex awareness..."
-echo "# ezy.py - Main app bootstrap" > ezy.py
-echo "# Updated: 12 July 2025 — Added Codex snapshot awareness 💚" >> ezy.py
+cat <<EOF > ezy.py
+# ezy.py - Main app bootstrap
+# Updated: 12 July 2025 — Added Codex snapshot awareness 💚
+EOF
 
 echo "📘 Updating README.md..."
 cat <<EOF > README.md
@@ -43,9 +45,10 @@ EOF
 echo "📂 Adding updated files to Git..."
 git add templates/about.html ezy.py README.md
 
-# Optional: Automatically detect latest snapshot folder (most recent by mod time)
-LATEST_SNAPSHOT_DIR=$(ls -td reports/EZYGALLERY-* | head -n 1 || true)
-if [[ -d "$LATEST_SNAPSHOT_DIR" ]]; then
+# ✅ FIXED: Safe snapshot directory detection using find instead of ls
+LATEST_SNAPSHOT_DIR=$(find reports/ -maxdepth 1 -type d -name "EZYGALLERY-*" -printf "%T@ %p\n" | sort -n | tail -n 1 | cut -d' ' -f2-)
+
+if [[ -n "$LATEST_SNAPSHOT_DIR" && -d "$LATEST_SNAPSHOT_DIR" ]]; then
   echo "🗂️ Tracking latest snapshot folder: $LATEST_SNAPSHOT_DIR"
   git add "$LATEST_SNAPSHOT_DIR"
 else
