@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}{{ artwork.title }} - EzyGallery{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <a href="{{ url_for('gallery.gallery') }}" class="d-block mb-3">&larr; Back to Gallery</a>
+  <div class="row">
+    <div class="col-md-6 text-center mb-3">
+      <img src="{{ url_for('static', filename='img/artwork1.jpg') }}" class="img-fluid" alt="{{ artwork.title }}">
+    </div>
+    <div class="col-md-6">
+      <h1>{{ artwork.title }}</h1>
+      <p class="h5 mb-3">
+        <span class="fw-bold">${{ artwork.price }}</span>
+        {% if artwork.discount_price %}<del>${{ artwork.discount_price }}</del>{% endif %}
+      </p>
+      <p class="mb-3">Customize your print with various frame and size options.</p>
+      <h3>Mockups</h3>
+      <ul>
+        {% for i in range(1,11) %}
+        <li>MU-{{ '%02d' % i }}</li>
+        {% endfor %}
+      </ul>
+      <button class="btn btn-primary">Buy Print</button>
+    </div>
+  </div>
+</div>
+{% endblock %}

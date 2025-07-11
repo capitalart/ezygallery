@@ -1,6 +1,44 @@
 {% extends 'base.html' %}
 {% block title %}Gallery - EzyGallery{% endblock %}
 {% block content %}
-<h2>Gallery</h2>
-<p>Gallery content coming soon.</p>
+<div class="container py-4">
+  <h1 class="mb-3">High-Quality Art Prints: Framed &amp; Recessed</h1>
+  <p>Explore our curated collection of modern art prints perfect for any space.</p>
+  <div class="row row-cols-1 row-cols-md-2 g-4 my-4">
+    <div class="col">
+      <a href="/gallery/foil-art" class="text-decoration-none">
+        <div class="card h-100">
+          <img src="{{ url_for('static', filename='img/placeholder1.jpg') }}" class="card-img-top" alt="Foil Art Prints">
+          <div class="card-body text-center">
+            <h3 class="card-title">New: Foil Art Prints</h3>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col">
+      <a href="/gallery/collage" class="text-decoration-none">
+        <div class="card h-100">
+          <img src="{{ url_for('static', filename='img/placeholder2.jpg') }}" class="card-img-top" alt="Collage Sets">
+          <div class="card-body text-center">
+            <h3 class="card-title">New: Collage Sets</h3>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for i in range(1,4) %}
+    <div class="col">
+      <div class="card h-100 text-center">
+        <img src="{{ url_for('static', filename='img/artwork' ~ i ~ '.jpg') }}" class="card-img-top" alt="Artwork {{ i }}">
+        <div class="card-body">
+          <h5 class="card-title">Artwork {{ i }}</h5>
+          <p class="card-text"><span class="fw-bold">$44.00</span> <del>$55</del> 20% Off</p>
+          <p class="card-text small text-muted">Customize: ✓ Frame, ✓ Size</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
