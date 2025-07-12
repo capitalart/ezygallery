@@ -10,16 +10,16 @@
 </head>
 <body data-theme="light">
   <header class="site-header">
-    <div class="logo-row">
+    <div class="container flex-header">
       <a href="{{ url_for('home.index') }}" class="logo-text">EZY <span>gallery</span></a>
+      <nav class="nav-row">
+        <ul class="nav-list">
+          {% for page in available_pages %}
+            <li><a href="{{ page.url }}" class="{% if request.path == page.url %}active{% endif %}">{{ page.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
     </div>
-    <nav class="nav-row">
-      <ul class="nav-list">
-        {% for page in available_pages %}
-          <li><a href="{{ page.url }}" class="{% if request.path == page.url %}active{% endif %}">{{ page.name }}</a></li>
-        {% endfor %}
-      </ul>
-    </nav>
   </header>
 
   <main class="container">
