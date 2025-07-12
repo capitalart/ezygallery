@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Home - EzyGallery{% endblock %}
 {% block content %}
-<h2>Welcome to EzyGalleryttt</h2>
-<p>This is the home page.</p>
+<section class="hero">
+  <div class="container">
+    <h1>EzyGallery</h1>
+    <p>Discover unique art prints for your space.</p>
+    <a href="{{ url_for('gallery.gallery') }}" class="btn">Browse Gallery</a>
+  </div>
+</section>
 {% endblock %}
