@@ -71,7 +71,6 @@ pip-delete-this-directory.txt
 # === EzyGallery extras ===
 outputs/
 inputs/
-codex-prompts/
 
 # ✅ Reports and Git logs ARE INCLUDED so Codex can reference them
 # ✅ Leave out git-update-push-logs/ and reports/ ONLY IF you prefer local
