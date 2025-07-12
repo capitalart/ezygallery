@@ -180,3 +180,22 @@ button {
     justify-content: center;
   }
 }
+
+/* ------------------------------------------------------------
+   Home hero
+   --------------------------------------------------------- */
+.hero {
+  padding: 4rem 0;
+  text-align: center;
+}
+.hero .btn {
+  margin-top: var(--space-3);
+}
+
+/* Header flex container */
+.flex-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--menu-height);
+}
