@@ -6,4 +6,4 @@ home_bp = Blueprint('home', __name__)
 @home_bp.route('/home')
 def index():
     """Display the main home page."""
-    return render_template('home.html')
+    return render_template('index.html')

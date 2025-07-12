@@ -2,60 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}EzyGallery{% endblock %}</title>
-  <meta name="description" content="{% block meta_description %}Affordable high-quality art prints{% endblock %}">
-  <link rel="stylesheet" href="{{ static_url('css/style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EzyGallery</title>
   <link rel="stylesheet" href="{{ static_url('css/global.css') }}">
 </head>
-<body data-theme="light">
-  <header class="site-header">
-    <div class="container flex-header">
-      <a href="{{ url_for('home.index') }}" class="logo-text">EZY <span>gallery</span></a>
-      <nav class="nav-row">
-        <ul class="nav-list">
-          {% for page in available_pages %}
-            <li><a href="{{ page.url }}" class="{% if request.path == page.url %}active{% endif %}">{{ page.name }}</a></li>
-          {% endfor %}
-        </ul>
-      </nav>
+<body>
+  <header>
+    <div class="row-1">
+      <a href="/">EzyGallery</a>
+      <button id="menu-toggle">Menu ↑</button>
+      <div>Cart (0)</div>
     </div>
+    <nav class="row-2">
+      <a href="/">Home</a>
+      <a href="/gallery">Gallery</a>
+      <a href="/upload">Upload</a>
+      <a href="/docs">Docs</a>
+      <a href="/about">About</a>
+    </nav>
   </header>
-
-  <main class="container">
-    {% block content %}{% endblock %}
-  </main>
-
-  <footer class="bg-light mt-5 py-4">
-    <div class="container">
-      <div class="row row-cols-1 row-cols-md-4 g-3">
-        <div class="col">
-          <h6>Contact</h6>
-          <ul class="list-unstyled">
-            <li><a href="/contact">Email Us</a></li>
-          </ul>
-        </div>
-        <div class="col">
-          <h6>Customer Support</h6>
-          <ul class="list-unstyled">
-            <li><a href="#">FAQ</a></li>
-          </ul>
-        </div>
-        <div class="col">
-          <h6>About Us</h6>
-          <ul class="list-unstyled">
-            <li><a href="/about">Our Story</a></li>
-            <li><a href="/accessibility">Accessibility</a></li>
-          </ul>
-        </div>
-        <div class="col">
-          <h6>Artist Support</h6>
-          <ul class="list-unstyled">
-            <li><a href="#">Sell with Us</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <div class="menu-overlay">
+    <a href="/">Home</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/upload">Upload</a>
+    <a href="/docs">Docs</a>
+    <a href="/about">About</a>
+  </div>
+  {% block content %}{% endblock %}
+  <script src="{{ static_url('js/main.js') }}"></script>
 </body>
 </html>

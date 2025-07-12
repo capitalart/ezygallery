@@ -1,201 +1,64 @@
-/* global.css - Global styles and variables for EzyGallery */
-
 :root {
-  /* Color palette */
-  --color-bg: #ffffff;
-  --color-surface: #f8f9fa;
-  --color-text: #212529;
-  --color-primary: #0d6efd;
-  --color-border: #dee2e6;
-
-  /* Typography */
-  --font-heading: serif;
+  --font-header: serif;
   --font-body: sans-serif;
-  --font-code: monospace;
-
-  /* Layout */
-  --max-width: 1200px;
-  --menu-height: 60px;
-  --gallery-gap: 1rem;
-
-  /* Spacing */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-
-  /* Radius & Shadows */
-  --radius: 0.5rem;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-
-  /* Z-index */
-  --z-base: 0;
-  --z-dropdown: 1000;
-  --z-overlay: 1100;
-
-  /* Transitions */
-  --transition-duration: 0.2s;
-  --transition-easing: ease-in-out;
 }
 
-/* Dark theme overrides */
-body[data-theme='dark'] {
-  --color-bg: #121212;
-  --color-surface: #1e1e1e;
-  --color-text: #f1f1f1;
-  --color-primary: #4d90fe;
-  --color-border: #333;
-}
-
-/* Global element defaults */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-html, body {
-  padding: 0;
-  margin: 0;
-  background-color: var(--color-bg);
-  color: var(--color-text);
+body {
   font-family: var(--font-body);
-  line-height: 1.6;
-  min-height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 h1, h2, h3 {
-  font-family: var(--font-heading);
-  margin-top: 0;
-  margin-bottom: var(--space-3);
-  line-height: 1.25;
+  font-family: var(--font-header);
 }
 
-p, span, li, a {
-  font-family: var(--font-body);
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: white;
+  border-bottom: 1px solid #eee;
 }
 
-a {
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: color var(--transition-duration) var(--transition-easing);
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-button {
-  font-family: var(--font-body);
-}
-
-/* Layout utilities */
-.container {
-  width: 100%;
-  max-width: var(--max-width);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--space-3);
-  padding-right: var(--space-3);
-}
-
-.card {
-  background-color: var(--color-surface);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  padding: var(--space-3);
-  transition: box-shadow var(--transition-duration) var(--transition-easing);
-}
-
-.card:hover {
-  box-shadow: var(--shadow-md);
-}
-
-.btn {
-  display: inline-block;
-  background-color: var(--color-primary);
-  color: #fff;
-  padding: var(--space-2) var(--space-3);
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  text-decoration: none;
-  transition: background-color var(--transition-duration) var(--transition-easing),
-              box-shadow var(--transition-duration) var(--transition-easing);
-}
-
-.btn:hover {
-  box-shadow: var(--shadow-md);
-}
-
-/* ------------------------------------------------------------
-   Header layout
-   --------------------------------------------------------- */
-.site-header {
-  border-bottom: 1px solid var(--color-border);
-}
-
-.logo-row {
-  height: var(--menu-height);
+header .row-1,
+header .row-2 {
   display: flex;
-  align-items: center;
-  padding: 0 var(--space-3);
-}
-
-.logo-text {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  color: var(--color-text);
-}
-
-.nav-row {
-  border-top: 1px solid var(--color-border);
-}
-
-.nav-list {
-  list-style: none;
-  margin: 0;
-  padding: var(--space-2) var(--space-3);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-3);
-}
-
-.nav-list a {
-  color: var(--color-text);
-  padding: var(--space-1) var(--space-2);
-}
-
-.nav-list a.active {
-  color: var(--color-primary);
-  border-bottom: 2px solid var(--color-primary);
-}
-
-@media (max-width: 600px) {
-  .nav-list {
-    flex-direction: column;
-    align-items: center;
-  }
-  .logo-row {
-    justify-content: center;
-  }
-}
-
-/* ------------------------------------------------------------
-   Home hero
-   --------------------------------------------------------- */
-.hero {
-  padding: 4rem 0;
-  text-align: center;
-}
-.hero .btn {
-  margin-top: var(--space-3);
-}
-
-/* Header flex container */
-.flex-header {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  height: var(--menu-height);
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+header .row-2 {
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Menu overlay styles */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 4rem;
+  gap: 2rem;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+  font-size: 3rem;
+}
+
+body.menu--open .menu-overlay {
+  transform: translateY(0);
+}
+
+.menu-overlay a {
+  text-decoration: none;
+  color: black;
 }
