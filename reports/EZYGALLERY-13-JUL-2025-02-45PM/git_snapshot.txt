@@ -1,0 +1,19 @@
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	renamed:    ezy.py -> app.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	reports/EZYGALLERY-13-JUL-2025-02-45PM/
+
+commit afde8e1b2020f3847a4886e0e4ff44db4cffd838
+Merge: 7a8b983 7f5ab80
+Author: Robin Custance <robincustance@gmail.com>
+Date:   Sun Jul 13 06:50:11 2025 +0930
+
+    Merge pull request #9 from capitalart/codex/reset-and-rebuild-frontend-layout-structure
+
+
