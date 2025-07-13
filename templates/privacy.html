@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% block title %}Privacy Policy{% endblock %}
+{% block content %}
+<section class="container mx-auto p-6 space-y-6">
+  <h1 class="text-3xl font-bold mb-4">Privacy Policy</h1>
+  <p>
+    We keep things simple: no sneaky tracking beyond what helps the site run.
+    Anything you upload stays private until you choose to share it.
+  </p>
+  <p>
+    We do lean on a few mates like OpenAI and Sellbrite to power our tools,
+    so your data may pass through their services—but only to make your life
+    easier here on EzyGallery.
+  </p>
+  <p>Got questions? Email us at <a href="mailto:privacy@ezygallery.com">privacy@ezygallery.com</a>.</p>
+</section>
+<footer class="container mx-auto p-6 text-center space-x-4">
+  <a href="{{ url_for('flatpage', page_name='index') }}">Back to Home</a>
+  <span>|</span>
+  <a href="{{ url_for('flatpage', page_name='upload') }}">Upload</a>
+  <span>|</span>
+  <a href="{{ url_for('flatpage', page_name='gallery') }}">Gallery</a>
+</footer>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block title %}Terms & Conditions{% endblock %}
+{% block content %}
+<section class="container mx-auto p-6 space-y-6">
+  <h1 class="text-3xl font-bold mb-4">Terms &amp; Conditions</h1>
+  <p>
+    All artwork here is digital and protected by copyright. Mate, don’t steal
+    stuff, and we won’t either. Each listing you purchase grants you a licence
+    for personal or exclusive use as noted.
+  </p>
+  <p>
+    We offer limited editions for certain pieces. Listings are capped at
+    500 characters so you know exactly what you’re getting.
+  </p>
+  <p>
+    By using this site you agree to follow these terms and respect the artists
+    who share their stories here.
+  </p>
+</section>
+<footer class="container mx-auto p-6 text-center space-x-4">
+  <a href="{{ url_for('flatpage', page_name='index') }}">Back to Home</a>
+  <span>|</span>
+  <a href="{{ url_for('flatpage', page_name='upload') }}">Upload</a>
+  <span>|</span>
+  <a href="{{ url_for('flatpage', page_name='gallery') }}">Gallery</a>
+</footer>
+{% endblock %}
