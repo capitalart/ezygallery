@@ -1,34 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EzyGallery</title>
-  <link rel="stylesheet" href="{{ static_url('css/global.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ezy Gallery{% endblock %}</title>
+    <link rel="stylesheet" href="{{ static_url('css/menu-style.css') }}">
 </head>
 <body>
-  <header>
-    <div class="row-1">
-      <a href="/">EzyGallery</a>
-      <button id="menu-toggle">Menu ↑</button>
-      <div>Cart (0)</div>
+    <div class="page-wrapper">
+        <header class="site-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <img src="{{ static_url('icons/svg/light/palette-light.svg') }}" alt="Palette Icon" class="header-icon">
+                    <a href="{{ url_for('flatpage', page_name='index') }}" class="logo">Ezy Gallery</a>
+                </div>
+                <div class="header-center">
+                    <button id="menuToggle" class="menu-toggle">
+                        <span>Menu</span>
+                        <img src="{{ static_url('icons/svg/light/arrow-circle-down-light.svg') }}" alt="Open menu" class="header-icon arrow-icon">
+                    </button>
+                </div>
+                <div class="header-right">
+                    <a href="#" id="userAuthLink" class="header-icon-link">
+                        <img id="userIcon" src="{{ static_url('icons/svg/light/user-circle-light.svg') }}" alt="User Icon" class="header-icon">
+                    </a>
+                    <button id="themeToggle" class="theme-toggle-btn">
+                        <img id="themeIcon" src="{{ static_url('icons/svg/light/moon-light.svg') }}" alt="Theme Toggle Icon" class="header-icon">
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <nav id="overlayMenu">
+            <div class="overlay-header">
+                <div class="header-content">
+                    <div class="header-left">
+                        <img src="{{ static_url('icons/svg/light/palette-light.svg') }}" alt="Palette Icon" class="header-icon">
+                        <a href="{{ url_for('flatpage', page_name='index') }}" class="logo">Ezy Gallery</a>
+                    </div>
+                    <div class="header-center">
+                        <button id="menuToggleOverlay" class="menu-toggle">
+                            <span>Menu</span>
+                            <img src="{{ static_url('icons/svg/light/arrow-circle-up-light.svg') }}" alt="Close menu" class="header-icon arrow-icon">
+                        </button>
+                    </div>
+                    <div class="header-right">
+                        <a href="#" id="userAuthLinkOverlay" class="header-icon-link">
+                            <img id="userIconOverlay" src="{{ static_url('icons/svg/light/user-circle-light.svg') }}" alt="User Icon" class="header-icon">
+                        </a>
+                        <button id="themeToggleOverlay" class="theme-toggle-btn">
+                            <img id="themeIconOverlay" src="{{ static_url('icons/svg/light/moon-light.svg') }}" alt="Theme Toggle Icon" class="header-icon">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="overlay-content">
+                <div class="menu-columns">
+                    <ul class="menu-column">
+                        <li><a href="{{ url_for('flatpage', page_name='upload') }}">Upload</a></li>
+                        <li><a href="{{ url_for('flatpage', page_name='gallery') }}">Gallery</a></li>
+                        <li><a href="#">Finalised</a></li>
+                        <li><a href="#">Exports</a></li>
+                        <li><a href="#">Prompts</a></li>
+                        <li><a href="{{ url_for('flatpage', page_name='docs') }}">Docs</a></li>
+                        <li><a href="#">Admin</a></li>
+                    </ul>
+                    <ul class="menu-column">
+                        <li><a href="#">GDWS Editor</a></li>
+                        <li><a href="#">AIGW</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Limitations</a></li>
+                        <li><a href="{{ url_for('flatpage', page_name='accessibility') }}">Accessibility</a></li>
+                        <li><a href="{{ url_for('flatpage', page_name='contact') }}">Contact</a></li>
+                        <li><a href="{{ url_for('flatpage', page_name='about') }}">About</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-columns">
+                    <div class="footer-col">
+                        <h4>Ezy Gallery</h4>
+                        <p>Aboriginal Australian art powered by next-gen automation &amp; heart.</p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Menu</h4>
+                        <ul>
+                            <li><a href="{{ url_for('flatpage', page_name='index') }}">Home</a></li>
+                            <li><a href="{{ url_for('flatpage', page_name='upload') }}">Upload</a></li>
+                            <li><a href="{{ url_for('flatpage', page_name='gallery') }}">Gallery</a></li>
+                            <li><a href="#">Finalised</a></li>
+                            <li><a href="#">Exports</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="{{ url_for('flatpage', page_name='about') }}">About</a></li>
+                            <li><a href="{{ url_for('flatpage', page_name='contact') }}">Contact</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms &amp; Limitations</a></li>
+                            <li><a href="{{ url_for('flatpage', page_name='accessibility') }}">Accessibility</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Join our newsletter</h4>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Your email" required>
+                            <button type="submit" aria-label="Subscribe to newsletter">
+                                <img src="{{ static_url('icons/svg/light/arrow-circle-up-light.svg') }}" class="header-icon" alt="Submit">
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="copyright-bar">
+                    <p>© 2025 Robin Custance. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
     </div>
-    <nav class="row-2">
-      <a href="/">Home</a>
-      <a href="/gallery">Gallery</a>
-      <a href="/upload">Upload</a>
-      <a href="/docs">Docs</a>
-      <a href="/about">About</a>
-    </nav>
-  </header>
-  <div class="menu-overlay">
-    <a href="/">Home</a>
-    <a href="/gallery">Gallery</a>
-    <a href="/upload">Upload</a>
-    <a href="/docs">Docs</a>
-    <a href="/about">About</a>
-  </div>
-  {% block content %}{% endblock %}
-  <script src="{{ static_url('js/main.js') }}"></script>
+    <script src="{{ static_url('js/menu-script.js') }}"></script>
 </body>
 </html>
