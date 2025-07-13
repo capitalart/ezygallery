@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block title %}Welcome to EzyGallery{% endblock %}
+{% block content %}
+<section class="container mx-auto p-6 space-y-6 text-center">
+  <h1 class="text-4xl font-bold mb-4">Your Story. Your Art. Your Gallery.</h1>
+  <p>
+    Aboriginal Australian art meets next-gen automation here at EzyGallery.
+    We blend culture with clever tech so you can focus on creating.
+  </p>
+  <ul class="list-disc list-inside text-left max-w-xl mx-auto">
+    <li>Upload once, store forever</li>
+    <li>AI-crafted listings ready for the web</li>
+    <li>Mockups sorted by room and vibe</li>
+    <li>Export straight to your favourite marketplaces</li>
+  </ul>
+  <div class="space-x-4 mt-4">
+    <a href="{{ url_for('flatpage', page_name='upload') }}" class="px-4 py-2 bg-blue-600 text-white rounded">Upload</a>
+    <a href="{{ url_for('flatpage', page_name='gallery') }}" class="px-4 py-2 bg-green-600 text-white rounded">Gallery</a>
+  </div>
+</section>
+<footer class="container mx-auto p-6 text-center space-x-4">
+  <a href="{{ url_for('flatpage', page_name='index') }}">Back to Home</a>
+  <span>|</span>
+  <a href="{{ url_for('flatpage', page_name='about') }}">About</a>
+  <span>|</span>
+  <a href="{{ url_for('flatpage', page_name='privacy') }}">Privacy Policy</a>
+</footer>
+{% endblock %}

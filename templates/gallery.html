@@ -1,5 +1,40 @@
-{% extends "base.html" %}
+{% extends 'layout.html' %}
+{% block title %}Artwork Gallery{% endblock %}
 {% block content %}
-<h1>Gallery</h1>
-<p>Coming soon...</p>
+<section class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold mb-6">Artwork Gallery</h1>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    {% set titles = [
+      'Wattle Dreaming',
+      'Ocean Eyes',
+      'Tracks of Fire',
+      'Desert Whispers',
+      'Rain Song',
+      'Midnight Gum',
+      'Coastal Flow',
+      'Sunlit Path',
+      'Earth Echo'
+    ] %}
+    {% for title in titles[:9] %}
+    <figure class="relative group bg-gray-100 rounded shadow overflow-hidden">
+      <img src="{{ static_url('img/placeholder.jpg') }}" alt="{{ title }}"
+           class="w-full h-auto">
+      <figcaption class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition">
+        <h3 class="text-white mb-2">{{ title }}</h3>
+        <div class="space-x-2">
+          <a href="#" class="px-2 py-1 bg-white text-sm">View Details</a>
+          <a href="#" class="px-2 py-1 bg-white text-sm">Add to Export</a>
+        </div>
+      </figcaption>
+    </figure>
+    {% endfor %}
+  </div>
+</section>
+<footer class="container mx-auto p-6 text-center space-x-4">
+  <a href="{{ url_for('flatpage', page_name='index') }}">Back to Home</a>
+  <span>|</span>
+  <a href="{{ url_for('flatpage', page_name='upload') }}">Upload</a>
+  <span>|</span>
+  <a href="{{ url_for('flatpage', page_name='about') }}">About</a>
+</footer>
 {% endblock %}
