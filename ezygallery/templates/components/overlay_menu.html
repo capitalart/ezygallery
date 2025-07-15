@@ -1,0 +1,55 @@
+{# =============================================================
+   File: overlay_menu.html
+   Purpose: Fullscreen overlay navigation menu
+   -------------------------------------------------------------
+   TABLE OF CONTENTS
+   [ovmenu-html-1] Overlay container & close button
+   [ovmenu-html-2] Menu link groups
+   [ovmenu-html-3] Admin management links
+   ============================================================= #}
+
+<nav id="overlayMenu" aria-hidden="true">
+  {# [ovmenu-html-1] Overlay container & close button #}
+  <button id="overlayClose" class="overlay-close" aria-label="Close Menu">&times;</button>
+  <div class="overlay-content">
+    <div class="overlay-columns">
+      {# [ovmenu-html-2] Menu link groups from menu.json #}
+      {% for section, items in mega_menu.items() %}
+      <div class="overlay-col">
+        <h3 class="menu-header">{{ section }}</h3>
+        <ul class="overlay-links">
+        {% for item in items %}
+          {% if item.label == 'Upgrade' and not session.get('user') %}
+          {% else %}
+          <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+
+      {# [ovmenu-html-3] Extra admin tools visible only for Robbie #}
+      {% if session.get('user') == 'robbie' %}
+      <div class="overlay-col">
+        <h3 class="menu-header">Management Suite</h3>
+        <ul class="overlay-links">
+          <li><a href="{{ url_for('management.dashboard') }}">Suite Home</a></li>
+          <li><a href="{{ url_for('gdws_admin.editor') }}">GDWS</a></li>
+          <li><a href="{{ url_for('mockups.index') }}">Mockup Management</a></li>
+          <li><a href="{{ url_for('openai_guidance.manage') }}">OpenAI Guidance</a></li>
+          <li><a href="{{ url_for('admin_routes.admin_all') }}#dashboard">Dashboard</a></li>
+          <li><a href="{{ url_for('admin_routes.admin_all') }}#user-management">User Management</a></li>
+          <li><a href="{{ url_for('admin_routes.admin_all') }}#settings">Settings</a></li>
+          <li><a href="{{ url_for('admin_routes.admin_all') }}#prompt-options">Prompt Options</a></li>
+          <li><a href="{{ url_for('admin_routes.admin_all') }}#security">Security</a></li>
+          <li><a href="{{ url_for('admin_routes.admin_all') }}#sessions">Sessions</a></li>
+          <li><a href="{{ url_for('admin_routes.admin_all') }}#cache-control">Cache Control</a></li>
+          <li><a href="{{ url_for('admin_routes.admin_all') }}#git-log">Git Log</a></li>
+          <li><a href="{{ url_for('admin_routes.login_disabled') }}">Auth Disabled</a></li>
+          <li><a href="{{ url_for('admin_routes.admin_all') }}#login-bypass">Login Bypass</a></li>
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,52 @@
+{# =============================================================
+   File: header.html
+   Purpose: Site header with theme toggle and menu button
+   -------------------------------------------------------------
+   TABLE OF CONTENTS
+   [header-html-1] Bypass banner
+   [header-html-2] Primary header layout
+   [header-html-3] Right-side account & theme controls
+   ============================================================= #}
+
+{% if login_bypass_enabled %}
+<div class="login-bypass-banner">🟡 Login system is temporarily bypassed by admin</div>
+{% endif %}
+<header class="site-header">
+  <div class="header-content">
+    {# [header-html-2] Left logo area #}
+    <div class="header-left">
+      <img src="{{ url_for('static', filename='icons/svg/light/palette-light.svg') }}" alt="Palette Icon" class="header-icon">
+      <a href="{{ url_for('artwork.home') }}" class="logo">Ezy Gallery</a>
+    </div>
+    <div class="header-center">
+      <nav class="main-nav" aria-label="Primary">
+        <ul class="main-nav-links">
+          <li><a href="{{ url_for('artwork.upload_artwork') }}">Upload</a></li>
+          <li><a href="{{ url_for('artwork.artworks') }}">Gallery</a></li>
+          <li><a href="{{ url_for('artwork.finalised_gallery') }}">Finalised</a></li>
+          <li><a href="{{ url_for('management.dashboard') }}">Management</a></li>
+          <li><a href="{{ url_for('documentation.docs_all') }}">Docs</a></li>
+        </ul>
+      </nav>
+      <button id="menuToggle" class="menu-toggle" aria-controls="overlayMenu" aria-expanded="false">
+        <span>Menu</span>
+        <img src="{{ url_for('static', filename='icons/svg/light/arrow-circle-down-light.svg') }}" alt="Open menu" class="header-icon arrow-icon">
+      </button>
+    </div>
+    {# [header-html-3] Right account/login and theme toggle #}
+    <div class="header-right">
+      {% if session.get('user') %}
+      <a href="{{ url_for('auth.account') }}" id="userAuthLink" class="header-icon-link" aria-label="Account">
+        <img id="userIcon" src="{{ url_for('static', filename='icons/svg/light/user-circle-light.svg') }}" alt="User Icon" class="header-icon">
+        <span class="sr-only">Account</span>
+      </a>
+      <span class="login-greeting">Hi {{ session['user'].title() }}</span>
+      {% else %}
+      <a href="{{ url_for('auth.login') }}" id="userAuthLink" class="header-icon-link">Login</a>
+      {% endif %}
+      <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+        <img id="themeIcon" src="{{ url_for('static', filename='icons/svg/light/moon-light.svg') }}" alt="Theme Toggle Icon" class="header-icon">
+      </button>
+    </div>
+  </div>
+</header>

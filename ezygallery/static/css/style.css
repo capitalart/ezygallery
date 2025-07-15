@@ -1,0 +1,120 @@
+/* ==========================================================================
+   File: style.css
+   Purpose: Consolidated styles for ART Narrator.
+   ========================================================================== */
+
+/* --- [1] CSS Variables for Theming --- */
+:root {
+    /* Variables used across style.css and custom.css (audit 2025-07-14) */
+    --bg-color-light: #f9f9f6;
+    --text-color-light: #0d0d0d;
+    --border-color-light: #e0e0e0;
+    --accent-color-light: #ed7214;
+    --overlay-bg-light: rgba(249, 249, 246, 0.85);
+
+    --bg-color-dark: #121212;
+    --text-color-dark: #f0f0f0;
+    --border-color-dark: #333;
+    --accent-color-dark: #ed7214;
+    --overlay-bg-dark: rgba(20, 20, 20, 0.85);
+
+    /* GDWS Editor */
+    --card-bg: #fff; /* Added from custom.css audit, 2025-07-14 */
+    --radius: 0px; /* Added from custom.css audit, 2025-07-14 */
+    --shadow: 0 2px 6px rgba(0, 0, 0, 0.06); /* Added from custom.css audit, 2025-07-14 */
+    --border: #ddd; /* Added from custom.css audit, 2025-07-14 */
+    --accent: var(--accent-color-light); /* Added from custom.css audit, 2025-07-14 */
+
+    /* Auth/Input Controls */
+    --input-text: #222; /* Added from custom.css audit, 2025-07-14 */
+
+    /* Workflow Buttons - light mode defaults */
+    --button-bg-light: #111;  /* July 2025 UI refresh */
+    --button-text-light: #fff;
+    --button-hover-bg-light: #fff;
+    --button-hover-text-light: #111;
+
+    --button-bg-dark: #fff;
+    --button-text-dark: #111;
+    --button-hover-bg-dark: #000;
+    --button-hover-text-dark: #fff;
+
+    /* defaults applied to light mode */
+    --button-bg: var(--button-bg-light);
+    --button-text: var(--button-text-light);
+    --button-hover-bg: var(--button-hover-bg-light);
+    --button-hover-text: var(--button-hover-text-light);
+
+    --input-bg: #fff;
+    --input-border: #ccc;
+}
+
+/* Visually hidden text for accessibility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* --- [2] Basic Body & Font Styles --- */
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: monospace;
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+html.dark body {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+    --button-bg: var(--button-bg-dark);
+    --button-text: var(--button-text-dark);
+    --button-hover-bg: var(--button-hover-bg-dark);
+    --button-hover-text: var(--button-hover-text-dark);
+    --input-bg: #222;
+    --input-border: #555;
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* --- [3] Global Button & Input Styles (2025 UI Refresh) --- */
+button,
+.btn,
+input,
+textarea,
+select,
+.form-control {
+    border-radius: 0;
+    border: none;
+    padding: 0.7em 1.3em;
+    font-weight: bold;
+    font-family: inherit;
+}
+
+button,
+.btn { background: var(--button-bg); color: var(--button-text); }
+
+button:hover,
+.btn:hover { background: var(--button-hover-bg); color: var(--button-hover-text); }
+
+input,
+textarea,
+select { background: var(--input-bg); border: 1px solid var(--input-border); width: 100%; box-sizing: border-box; color: var(--input-text); }
+

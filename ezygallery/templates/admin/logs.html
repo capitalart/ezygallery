@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+{% block title %}Log Viewer{% endblock %}
+{% block content %}
+<h1>Application Logs</h1>
+<form method="get" class="log-filter-form">
+  <label>Level:
+    <select name="level">
+      <option value="">All</option>
+      {% for lv in ['INFO','WARNING','ERROR','CRITICAL'] %}
+        <option value="{{ lv }}" {% if request.args.get('level')==lv %}selected{% endif %}>{{ lv }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>User: <input type="text" name="user" value="{{ request.args.get('user','') }}"></label>
+  <button type="submit" class="btn btn-sm">Filter</button>
+</form>
+<table class="log-table">
+  <tr><th>Time</th><th>Level</th><th>Event</th><th>Message</th><th>User</th></tr>
+  {% for entry in entries %}
+    <tr>
+      <td>{{ entry.timestamp }}</td>
+      <td>{{ entry.level }}</td>
+      <td>{{ entry.event_type }}</td>
+      <td>{{ entry.message }}</td>
+      <td>{{ entry.user_id or '' }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% if not entries %}<p>No log entries found.</p>{% endif %}
+{% endblock %}

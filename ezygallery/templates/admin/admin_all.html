@@ -1,0 +1,161 @@
+{% extends "main.html" %}
+{% block title %}Admin Console | Ezy Gallery{% endblock %}
+{% block content %}
+<h1>Admin Console</h1>
+<nav class="admin-toc">
+  <ul>
+    <li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#login-bypass">Login Bypass</a></li>
+    <li><a href="#cache-control">Cache Control</a></li>
+    <li><a href="#prompt-options">Prompt Options</a></li>
+    <li><a href="#git-log">Git Log</a></li>
+    <li><a href="{{ url_for('admin_routes.view_logs') }}">Log Viewer</a></li>
+    <li><a href="#sessions">Sessions</a></li>
+    <li><a href="#settings">Settings</a></li>
+    <li><a href="#user-management">User Management</a></li>
+  </ul>
+</nav>
+<hr>
+
+<!-- ====== [dashboard.html] ====== -->
+<section id="dashboard">
+  <h2>Admin Dashboard</h2>
+  <p>Welcome, {{ session['user'] }}. This area will provide admin statistics and quick links.</p>
+</section>
+<hr>
+
+<!-- ====== [security.html] ====== -->
+<section id="security">
+  <h2>Security Controls</h2>
+  <form method="post" action="{{ url_for('admin_routes.security') }}">
+    <label for="duration">Bypass Duration</label>
+    <select name="duration" id="duration">
+      <option value="300">5 minutes</option>
+      <option value="600">10 minutes</option>
+      <option value="3600">1 hour</option>
+      <option value="86400">1 day</option>
+    </select>
+    <button type="submit" name="action" value="enable" class="btn btn-warning">Enable</button>
+    <button type="submit" name="action" value="disable" class="btn btn-danger">Disable</button>
+  </form>
+  <p>Status: {% if remaining %}<strong>ACTIVE</strong> ({{ remaining }}){% else %}Not active{% endif %}</p>
+</section>
+<hr>
+
+<!-- ====== [login_bypass.html] ====== -->
+<section id="login-bypass">
+  <h2>Login Bypass</h2>
+  <form method="post" action="{{ url_for('admin_routes.login_bypass_panel') }}">
+    {% if active %}
+    <p>Status: <strong>ACTIVE</strong> ({{ remaining }})</p>
+    <button type="submit" name="action" value="disable" class="btn btn-danger">Disable</button>
+    {% else %}
+    <p>Status: Inactive</p>
+    <button type="submit" name="action" value="enable" class="btn btn-warning">Enable for 2 Hours</button>
+    {% endif %}
+  </form>
+</section>
+<hr>
+
+<!-- ====== [cache_control.html] ====== -->
+<section id="cache-control">
+  <h2>Cache Control</h2>
+  <form method="post" action="{{ url_for('admin_routes.cache_control') }}">
+    <button type="submit" name="action" value="enable" class="btn btn-warning">Enable</button>
+    <button type="submit" name="action" value="disable" class="btn btn-danger">Disable</button>
+  </form>
+  <p>Status: {% if cache_status %}<strong>ACTIVE</strong> ({{ cache_remaining }}){% else %}Not active{% endif %}</p>
+</section>
+<hr>
+
+<!-- ====== [prompt_options.html] ====== -->
+<section id="prompt-options">
+  <h2>Prompt Options</h2>
+  <select id="category-select"></select>
+  <textarea id="options-text" rows="10" cols="50"></textarea><br>
+  <button id="save-btn">Save</button>
+  <div id="status"></div>
+  <script>
+  const categories = {{ categories|tojson }};
+  const select = document.getElementById('category-select');
+  const textArea = document.getElementById('options-text');
+  const statusEl = document.getElementById('status');
+  categories.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c;
+    select.appendChild(opt);
+  });
+  function loadOptions(cat){
+    fetch(`/api/prompt-options/${cat}`)
+      .then(r => r.json())
+      .then(d => { textArea.value = JSON.stringify(d, null, 2); });
+  }
+  select.addEventListener('change', () => loadOptions(select.value));
+  document.getElementById('save-btn').addEventListener('click', () => {
+    const data = textArea.value;
+    fetch(`/admin/prompt-options/${select.value}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: data
+    }).then(r => r.json()).then(d => { statusEl.textContent = d.message; });
+  });
+  if (categories.length) loadOptions(categories[0]);
+  </script>
+</section>
+<hr>
+
+<!-- ====== [git_log.html] ====== -->
+<section id="git-log">
+  <h2>Debug: Git Log</h2>
+  <pre>
+  {% for line in log_lines %}
+  {{ line }}
+  {% endfor %}
+  </pre>
+</section>
+<hr>
+
+<!-- ====== [sessions.html] ====== -->
+<section id="sessions">
+  <h2>Active Sessions</h2>
+  <table class="session-table">
+    <thead>
+      <tr><th>User</th><th>Session ID</th><th>Timestamp</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+    {% for user, sessions in sessions.items() %}
+      {% for s in sessions %}
+      <tr>
+        <td>{{ user }}</td>
+        <td>{{ s.session_id[:6] }}</td>
+        <td>{{ s.timestamp }}</td>
+        <td>
+          <form method="post" action="{{ url_for('admin_routes.active_sessions') }}" style="display:inline">
+            <input type="hidden" name="username" value="{{ user }}">
+            <input type="hidden" name="session_id" value="{{ s.session_id }}">
+            <button type="submit" class="btn btn-danger">Revoke</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+<hr>
+
+<!-- ====== [settings.html] ====== -->
+<section id="settings">
+  <h2>Admin Settings</h2>
+  <p>This page will allow configuration of system options.</p>
+</section>
+<hr>
+
+<!-- ====== [user_management.html] ====== -->
+<section id="user-management">
+  <h2>User Management</h2>
+  <p>This page is currently under construction. Check back soon!</p>
+</section>
+{% endblock %}

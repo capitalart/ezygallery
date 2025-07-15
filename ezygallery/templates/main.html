@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- The 'dark' class will be toggled on this html tag -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ezy Gallery{% endblock %}</title>
+    <!-- Favicons & Web Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicons/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicons/site.webmanifest') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Android-specific -->
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='favicons/android-chrome-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ url_for('static', filename='favicons/android-chrome-512x512.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css')}}">
+</head>
+<body>
+    <div class="page-wrapper">
+        {% include 'components/header.html' %}
+
+        <!-- Main Content of the page -->
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-columns">
+                    <div class="footer-col">
+                        <h4>Ezy Gallery</h4>
+                        <p>Aboriginal Australian art powered by next-gen automation &amp; heart.</p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Links</h4>
+                        <ul>
+                            <li><a href="{{ url_for('artwork.home') }}">Home</a></li>
+                            <li><a href="{{ url_for('artwork.upload_artwork') }}">Upload</a></li>
+                            <li><a href="{{ url_for('documentation.docs_all') }}">Docs</a></li>
+                            <li><a href="{{ url_for('info.contact') }}">Contact</a></li>
+                            <li><a href="{{ url_for('info.privacy') }}">Privacy</a></li>
+                            <li><a href="{{ url_for('info.about') }}">About</a></li>
+                        </ul>
+                    </div>
+                    {% if session.get('user') == 'robbie' %}
+                    <div class="footer-col">
+                        <h4>Admin</h4>
+                        <ul>
+                            <li><a href="{{ url_for('admin_routes.admin_all') }}#cache-control">Cache Control</a></li>
+                            <li><a href="{{ url_for('admin_routes.admin_all') }}#git-log">Git Log</a></li>
+                            <li><a href="{{ url_for('admin_routes.login_disabled') }}">Auth Disabled</a></li>
+                            <li><a href="{{ url_for('admin_routes.admin_all') }}#login-bypass">Login Bypass</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="copyright-bar">
+                    <p>© 2025 Robin Custance. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+        {% include 'components/overlay_menu.html' %}
+    </div>
+
+    <!-- Link to the external JavaScript file -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

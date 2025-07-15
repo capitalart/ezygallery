@@ -1,0 +1,29 @@
+{# [WF-STEP-1] This page shows the circled step number at the top of the content, using .page-step-icon #}
+{% extends "main.html" %}
+{% block title %}Upload Artwork{% endblock %}
+{% block content %}
+<div class="page-step-wrapper" style="text-align: center; margin-bottom: 1.5em;">
+<div class="step-label">STAGE</div>
+<img class="page-step-icon" src="{{ url_for_static('static', filename='icons/svg/light/number-circle-one-light.svg') }}" alt="STAGE 1" />
+</div>
+<h2 class="mb-3">Upload New Artwork</h2>
+<form id="upload-form" method="post" enctype="multipart/form-data">
+  <input id="file-input" type="file" name="images" accept="image/*" multiple hidden aria-hidden="true">
+  <div id="dropzone" class="upload-container" aria-label="Artwork upload drop zone" aria-describedby="dropzone-desc" tabindex="0" role="button" title="Upload images">
+    <div class="upload-dropzone">
+      <img src="{{ url_for_static('static', filename='icons/svg/light/upload-light.svg') }}" class="dropzone-icon" alt="" aria-hidden="true"/>
+      <p id="dropzone-desc" class="dropzone-text">Drop ya art here, mate!<br><span class="small">or tap to choose file(s)</span></p>
+      <div class="spinner-overlay"><div class="spinner"></div></div>
+    </div>
+  </div>
+  <noscript>
+    <p class="upload-noscript">Drag and drop not supported. Please use the file selector.</p>
+  </noscript>
+  <p class="module-help">
+    <a href="{{ url_for('documentation.howto_upload') }}">How-To</a>
+    <a href="{{ url_for('documentation.docs_all') }}#uploads-howto">Full Docs</a>
+  </p>
+  <ul id="upload-list" class="upload-list"></ul>
+</form>
+<script src="{{ url_for_static('static', filename='js/upload.js') }}"></script>
+{% endblock %}

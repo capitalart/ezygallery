@@ -1,0 +1,155 @@
+{% extends "main.html" %}
+{% block title %}Edit Artwork Listing{% endblock %}
+{% block content %}
+{% set final_preview_url = url_for('artwork.finalised_image', seo_folder=seo_folder, filename=artwork.seo_filename) %}
+<div class="bg-gray-50 dark:bg-gray-900 min-h-screen py-12">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
+
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white">Edit Listing</h1>
+      <div class="mt-2 flex items-center justify-center gap-4 text-lg">
+        <span class="font-semibold text-gray-600 dark:text-gray-400">
+          Status:
+          <span class="font-bold {% if finalised %}text-green-500{% else %}text-yellow-500{% endif %}">
+            {% if finalised %}Finalised{% else %}In Progress{% endif %}
+          </span>
+        </span>
+        {% if locked %}
+        <span class="flex items-center gap-2 text-red-500 font-bold">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+          </svg>
+          Locked
+        </span>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Artwork Preview and Mockups -->
+    <div class="mb-8">
+      <div class="primary-thumb-container text-center mb-4">
+        <label class="block font-semibold mb-1">Primary Thumbnail</label>
+        <img id="primary-thumb" src="{{ thumbnail_url }}" alt="{{ artwork.title }} primary thumbnail" tabindex="0" class="primary-thumb rounded shadow-md cursor-pointer">
+      </div>
+      <div id="thumbnail-grid" class="mockup-grid">
+        <img src="{{ thumbnail_url }}" class="mockup-thumb" alt="Thumbnail 1" tabindex="0">
+        {% for url in mockup_urls %}
+          <img src="{{ url }}" class="mockup-thumb" alt="Mockup {{ loop.index }}" tabindex="0">
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Edit Form -->
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <form id="edit-form" method="POST" autocomplete="off" class="space-y-6">
+        {% set fields = ['title', 'description', 'tags', 'materials', 'primary_colour', 'secondary_colour', 'seo_filename', 'price', 'sku'] %}
+        {% for field in fields %}
+        <div>
+          <label for="{{ field }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ field.replace('_', ' ')|title }}</label>
+          {% if field in ['primary_colour', 'secondary_colour'] %}
+          <select id="{{ field }}" name="{{ field }}" class="block w-full rounded-md bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" {% if not editable %}disabled{% endif %}>
+            {% for col in colour_options %}<option value="{{ col }}" {% if artwork[field]==col %}selected{% endif %}>{{ col }}</option>{% endfor %}
+          </select>
+          {% elif field == 'description' %}
+          <textarea id="{{ field }}" name="{{ field }}" rows="12" class="block w-full rounded-md bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" {% if not editable %}disabled{% endif %}>{{ artwork[field]|e }}</textarea>
+          {% elif field == 'sku' %}
+          <input type="text" id="{{ field }}" value="{{ artwork[field]|e }}" class="block w-full rounded-md bg-gray-200 dark:bg-gray-700 border-transparent text-gray-500 focus:ring-0" readonly disabled>
+          {% else %}
+          <input type="text" id="{{ field }}" name="{{ field }}" value="{{ artwork[field]|e }}" class="block w-full rounded-md bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" {% if not editable %}disabled{% endif %}>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </form>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="space-y-3">
+      <button form="edit-form" type="submit" name="action" value="save" class="w-full bg-gray-800 dark:bg-gray-200 hover:bg-gray-900 dark:hover:bg-white text-white dark:text-black font-bold py-3 px-4 rounded-lg transition-colors shadow-md disabled:opacity-50">Save Changes</button>
+      <button form="edit-form" type="submit" name="action" value="delete" class="w-full bg-gray-800 dark:bg-gray-200 hover:bg-red-600 dark:hover:bg-red-500 text-white dark:text-black hover:text-white dark:hover:text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-md delete-btn disabled:opacity-50">Delete</button>
+      {% if not finalised %}
+      <form method="post" action="{{ url_for('artwork.finalise_artwork', aspect=aspect, filename=filename) }}" class="w-full"><button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-md">Finalise</button></form>
+      {% endif %}
+      <form method="POST" action="{{ url_for('artwork.analyze_artwork', aspect=aspect, filename=filename) }}" class="w-full"><button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-md disabled:opacity-50" {% if locked %}disabled{% endif %}>Re-analyse Artwork</button></form>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal Carousel -->
+<div id="carousel-modal" class="carousel-modal" aria-hidden="true">
+  <div class="carousel-content">
+    <button class="carousel-close" aria-label="Close">&times;</button>
+    <button class="carousel-nav left" aria-label="Previous">&#10094;</button>
+    <img id="carousel-img" class="carousel-img" src="" alt="Mockup preview">
+    <button class="carousel-nav right" aria-label="Next">&#10095;</button>
+    <div id="carousel-counter" class="carousel-counter"></div>
+  </div>
+</div>
+<script>
+const mockupUrls = [{{ thumbnail_url|tojson }}, ...{{ mockup_urls|tojson }}];
+let currentIndex = 0;
+const modal = document.getElementById('carousel-modal');
+const modalImg = document.getElementById('carousel-img');
+const counter = document.getElementById('carousel-counter');
+
+function showImage() {
+  modalImg.src = mockupUrls[currentIndex];
+  if(counter) counter.textContent = `${currentIndex + 1} / ${mockupUrls.length}`;
+}
+
+function openCarousel(startIndex = 0) {
+  currentIndex = startIndex;
+  showImage();
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCarousel() {
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+function nextImage() { currentIndex = (currentIndex + 1) % mockupUrls.length; showImage(); }
+function prevImage() { currentIndex = (currentIndex - 1 + mockupUrls.length) % mockupUrls.length; showImage(); }
+
+document.querySelectorAll('#primary-thumb, #thumbnail-grid img').forEach((img, idx) => {
+  img.addEventListener('click', () => openCarousel(idx));
+  img.addEventListener('keydown', e => { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openCarousel(idx); }});
+});
+
+document.querySelector('.carousel-close').addEventListener('click', closeCarousel);
+document.querySelector('.carousel-nav.right').addEventListener('click', nextImage);
+document.querySelector('.carousel-nav.left').addEventListener('click', prevImage);
+modal.addEventListener('click', e => { if(e.target === modal) closeCarousel(); });
+
+document.addEventListener('keydown', e => {
+  if(!modal.classList.contains('active')) return;
+  if(e.key === 'Escape') closeCarousel();
+  else if(e.key === 'ArrowRight') nextImage();
+  else if(e.key === 'ArrowLeft') prevImage();
+});
+
+const delBtn = document.querySelector('.delete-btn');
+if(delBtn){
+  delBtn.addEventListener('click', e => { if(!confirm('Delete this artwork and all files?')) e.preventDefault(); });
+}
+</script>
+
+<style>
+.primary-thumb-container img.primary-thumb { max-width: 260px; width: 100%; height: auto; }
+.mockup-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap: 0.5rem; }
+.mockup-thumb { width: 100%; height: 120px; object-fit: cover; cursor: pointer; border: 2px solid #ddd; }
+.carousel-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; z-index:1000; }
+.carousel-modal.active { display:flex; }
+.carousel-content { position:relative; width:85vw; height:85vh; display:flex; align-items:center; justify-content:center; }
+.carousel-content img { max-width:100%; max-height:100%; }
+.carousel-nav { position:absolute; top:50%; transform:translateY(-50%); background:none; border:none; color:#fff; font-size:2rem; cursor:pointer; }
+.carousel-nav.left { left:10px; }
+.carousel-nav.right { right:10px; }
+.carousel-close { position:absolute; top:10px; right:10px; background:none; border:none; color:#fff; font-size:2rem; cursor:pointer; }
+#carousel-counter { position:absolute; bottom:10px; right:50%; transform:translateX(50%); color:#fff; font-size:1rem; }
+</style>
+{% endblock %}

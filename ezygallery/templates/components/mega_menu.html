@@ -1,0 +1,3 @@
+{% if session.get('user') == 'robbie' %}
+<li><a href="{{ url_for('admin_routes.admin_all') }}#login-bypass">Login Bypass</a></li>
+{% endif %}

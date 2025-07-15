@@ -1,0 +1,15 @@
+{# =============================================================
+   File: stage_indicator.html
+   Purpose: macro to render a numbered workflow stage circle
+   -------------------------------------------------------------
+   TABLE OF CONTENTS
+   [stage-indicator-html-1] Stage indicator macro
+   ============================================================= #}
+
+{% macro stage_indicator(number, label, active=False) %}
+<div class="page-step-wrapper{% if active %} active{% endif %}">
+  <div class="stage-circle">{{ number }}</div>
+  <div class="stage-label">{{ label }}</div>
+</div>
+{% endmacro %}
+

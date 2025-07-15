@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+{% block title %}AI Image Generator Whisperer{% endblock %}
+{% block content %}
+<h1>AI Image Generator Whisperer</h1>
+<form method="post" id="prompt-form">
+  <div class="form-block">
+    <label for="prompt">Base Prompt</label>
+    <textarea id="prompt" name="prompt" rows="3" required></textarea>
+  </div>
+  <div class="selector-grid">
+    {% for key, vals in options.items() %}
+    <div class="selector-col">
+      <label for="sel-{{ key }}">{{ key.replace('_',' ').title() }}</label>
+      <select id="sel-{{ key }}" name="{{ key }}">
+        <option value="">Let the AI decide</option>
+        {% for v in vals %}
+        <option value="{{ v }}">{{ v }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% endfor %}
+  </div>
+  <button type="submit" class="btn-black">Save Prompt</button>
+</form>
+<div class="summary-box">
+  <h2>Current Selections</h2>
+  <ul id="summary-list"></ul>
+</div>
+<script>
+  function updateSummary() {
+    const summary = document.getElementById('summary-list');
+    summary.innerHTML = '';
+    const prompt = document.getElementById('prompt').value.trim();
+    if(prompt){
+      const li = document.createElement('li');
+      li.textContent = `Prompt: ${prompt}`;
+      summary.appendChild(li);
+    }
+    document.querySelectorAll('.selector-col select').forEach(sel=>{
+      if(sel.value){
+        const li = document.createElement('li');
+        li.textContent = `${sel.previousElementSibling.textContent}: ${sel.value}`;
+        summary.appendChild(li);
+      }
+    });
+  }
+  document.getElementById('prompt-form').addEventListener('input', updateSummary);
+  updateSummary();
+</script>
+<!-- Styles moved to static/css/custom.css -->
+{% endblock %}

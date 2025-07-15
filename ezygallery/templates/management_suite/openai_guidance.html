@@ -1,0 +1,32 @@
+{% extends "main.html" %}
+{% block title %}OpenAI Guidance | Ezy Gallery{% endblock %}
+{% block content %}
+<h1>OpenAI Guidance Management</h1>
+<form method="post">
+  <textarea name="guidance" rows="20" style="width:100%">{{ text }}</textarea>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+<h2>History</h2>
+<ul>
+  {% for v in versions %}
+  <li><a href="{{ url_for('openai_guidance.revert', name=v) }}">{{ v }}</a></li>
+  {% else %}
+  <li>No previous versions</li>
+  {% endfor %}
+</ul>
+<h2>Test Prompt</h2>
+<form id="test-form">
+  <textarea name="prompt" rows="4" style="width:100%" placeholder="Test prompt"></textarea>
+  <button type="submit" class="btn">Send</button>
+</form>
+<pre id="test-result"></pre>
+<script>
+  document.getElementById('test-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const res = await fetch('{{ url_for('openai_guidance.test_prompt') }}', {method:'POST', body:fd});
+    const data = await res.json();
+    document.getElementById('test-result').textContent = data.result;
+  });
+</script>
+{% endblock %}
