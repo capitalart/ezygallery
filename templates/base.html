@@ -21,7 +21,7 @@
                     </button>
                 </div>
                 <div class="header-right">
-                    <a href="#" id="userAuthLink" class="header-icon-link">
+                    <a href="{{ url_for('auth.login') }}" id="userAuthLink" class="header-icon-link">
                         <img id="userIcon" src="{{ static_url('icons/svg/light/user-circle-light.svg') }}" alt="User Icon" class="header-icon">
                     </a>
                     <button id="themeToggle" class="theme-toggle-btn">
@@ -45,7 +45,7 @@
                         </button>
                     </div>
                     <div class="header-right">
-                        <a href="#" id="userAuthLinkOverlay" class="header-icon-link">
+                        <a href="{{ url_for('auth.login') }}" id="userAuthLinkOverlay" class="header-icon-link">
                             <img id="userIconOverlay" src="{{ static_url('icons/svg/light/user-circle-light.svg') }}" alt="User Icon" class="header-icon">
                         </a>
                         <button id="themeToggleOverlay" class="theme-toggle-btn">
@@ -59,17 +59,17 @@
                     <ul class="menu-column">
                         <li><a href="{{ url_for('flatpage', page_name='upload') }}">Upload</a></li>
                         <li><a href="{{ url_for('flatpage', page_name='gallery') }}">Gallery</a></li>
-                        <li><a href="#">Finalised</a></li>
-                        <li><a href="#">Exports</a></li>
-                        <li><a href="#">Prompts</a></li>
+                        <li><a href="{{ url_for('cart.cart') }}">Cart</a></li>
+                        <li><a href="{{ url_for('checkout.checkout') }}">Checkout</a></li>
+                        <li><a href="{{ url_for('search.search') }}">Search</a></li>
                         <li><a href="{{ url_for('flatpage', page_name='docs') }}">Docs</a></li>
-                        <li><a href="#">Admin</a></li>
+                        <li><a href="{{ url_for('account.account') }}">Account</a></li>
                     </ul>
                     <ul class="menu-column">
                         <li><a href="#">GDWS Editor</a></li>
                         <li><a href="#">AIGW</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms &amp; Limitations</a></li>
+                        <li><a href="{{ url_for('flatpage', page_name='privacy') }}">Privacy Policy</a></li>
+                        <li><a href="{{ url_for('flatpage', page_name='terms') }}">Terms &amp; Limitations</a></li>
                         <li><a href="{{ url_for('flatpage', page_name='accessibility') }}">Accessibility</a></li>
                         <li><a href="{{ url_for('flatpage', page_name='contact') }}">Contact</a></li>
                         <li><a href="{{ url_for('flatpage', page_name='about') }}">About</a></li>
@@ -95,8 +95,8 @@
                             <li><a href="{{ url_for('flatpage', page_name='index') }}">Home</a></li>
                             <li><a href="{{ url_for('flatpage', page_name='upload') }}">Upload</a></li>
                             <li><a href="{{ url_for('flatpage', page_name='gallery') }}">Gallery</a></li>
-                            <li><a href="#">Finalised</a></li>
-                            <li><a href="#">Exports</a></li>
+                            <li><a href="{{ url_for('cart.cart') }}">Cart</a></li>
+                            <li><a href="{{ url_for('checkout.checkout') }}">Checkout</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
@@ -104,8 +104,8 @@
                         <ul>
                             <li><a href="{{ url_for('flatpage', page_name='about') }}">About</a></li>
                             <li><a href="{{ url_for('flatpage', page_name='contact') }}">Contact</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms &amp; Limitations</a></li>
+                            <li><a href="{{ url_for('flatpage', page_name='privacy') }}">Privacy Policy</a></li>
+                            <li><a href="{{ url_for('flatpage', page_name='terms') }}">Terms &amp; Limitations</a></li>
                             <li><a href="{{ url_for('flatpage', page_name='accessibility') }}">Accessibility</a></li>
                         </ul>
                     </div>
