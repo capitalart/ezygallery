@@ -1,0 +1,17 @@
+On branch master
+Your branch is behind 'origin/master' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	git-update-pull.sh
+	reports/EZYGALLERY-15-JUL-2025-03-32PM/
+
+nothing added to commit but untracked files present (use "git add" to track)
+commit 4c6a166383201d7c433f8d70f9570c1a22c78876
+Author: Robin Custance <rob@capitalart.com.au>
+Date:   Tue Jul 15 14:47:31 2025 +0930
+
+    add clone of artnarrator
+
+
