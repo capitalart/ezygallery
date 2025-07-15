@@ -3,7 +3,7 @@
 # ======================================================================================
 # 🔄 EzyGallery Git Sync & Pre-Pull Backup Engine 🖼️
 #
-# Version: 1.1
+# Version: 1.3
 # Author: Robbie (Adapted for EzyGallery by Gemini)
 #
 # This script is designed to run after a PR has been merged on the remote Git repo.
@@ -13,9 +13,11 @@
 # Workflow:
 # 1. Backs up the current application code and database.
 # 2. Uploads this "pre-pull" backup to the cloud.
-# 3. Pulls the latest code from the Git remote.
-# 4. Generates a report of what was just updated.
-# 5. Restarts the server to apply the new changes.
+# 3. Stashes local changes (like new backup files) to ensure a clean pull.
+# 4. Pulls the latest code from the Git remote.
+# 5. Restores the stashed files.
+# 6. Generates a report of what was just updated.
+# 7. Restarts the server to apply the new changes.
 #
 # ---
 #
@@ -110,6 +112,8 @@ log() {
 
 die() {
   log "ERROR" "$1"
+  # Attempt to restore stashed changes on failure
+  run_cmd "git stash pop" || log "WARN" "Could not pop stashed changes on exit. Please do it manually."
   exit 1
 }
 
@@ -161,21 +165,21 @@ handle_pre_pull_backup() {
     log "INFO" "Creating full project backup ZIP archive (pre-pull state)..."
     # Exclude directories that are large, generated, or contain secrets
     run_cmd "zip -r -q '$BACKUP_ZIP' . \
-        -x '.git/*' \
-        -x 'venv/*' \
-        -x 'node_modules/*' \
-        -x '__pycache__/*' \
-        -x 'backups/*' \
-        -x 'logs/*' \
-        -x 'dev_logs/*' \
-        -x 'git-update-push-logs/*' \
-        -x 'reports/*' \
+        -x '.git*' \
+        -x 'venv*' \
+        -x 'node_modules*' \
+        -x '__pycache__*' \
+        -x 'backups*' \
+        -x 'logs*' \
+        -x 'dev_logs*' \
+        -x 'git-update-push-logs*' \
+        -x 'reports*' \
         -x '*.DS_Store' \
         -x '.env' \
-        -x 'inputs/*' \
-        -x 'outputs/*' \
-        -x 'uploads_temp/*' \
-        -x 'example-images/*' \
+        -x 'inputs*' \
+        -x 'outputs*' \
+        -x 'uploads_temp*' \
+        -x 'example-images*' \
         -x '*.sqlite3' \
         -x '*.pyc' \
         -x '*.pyo'"
@@ -195,21 +199,28 @@ handle_git_pull() {
 
     log "INFO" "Preparing to pull updates from remote repository..."
 
-    # Check for uncommitted changes
-    if [[ -n $(git status --porcelain) ]]; then
-        die "Working directory is not clean. Please commit or stash your changes before pulling."
-    fi
+    # Stash any local changes, including untracked files like new backups/logs, to ensure a clean pull.
+    log "INFO" "Stashing local changes and untracked files..."
+    run_cmd "git stash push --include-untracked -m 'Pre-pull stash by EzyGallery script'"
 
     local pre_pull_hash
     pre_pull_hash=$(git rev-parse HEAD)
     log "INFO" "Current version (HEAD) is $pre_pull_hash"
 
     log "INFO" "Pulling latest changes from origin/main..."
-    run_cmd "git pull origin main --rebase" || die "git pull --rebase failed. Please resolve conflicts manually."
+    run_cmd "git pull origin main --rebase" || {
+        log "ERROR" "git pull --rebase failed. Restoring stashed changes."
+        run_cmd "git stash pop" || log "WARN" "Could not pop stashed changes. Please do it manually."
+        die "Please resolve conflicts manually."
+    }
 
     local post_pull_hash
     post_pull_hash=$(git rev-parse HEAD)
     log "SUCCESS" "Successfully pulled updates. New version (HEAD) is $post_pull_hash"
+
+    # Restore the stashed changes.
+    log "INFO" "Restoring stashed files..."
+    run_cmd "git stash pop" || log "WARN" "No stashed changes to restore, or pop failed. This is usually okay."
 
     # --- Diff Report (Post-Pull) ---
     log "INFO" "Generating report of changes pulled from remote..."
