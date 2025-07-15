@@ -109,7 +109,7 @@ fi
 if $ENABLE_ZIP; then
   log "📦 Creating ZIP backup..."
   zip -r "$BACKUP_ZIP" . \
-    -x ".git/*" "*.git*" "__pycache__/*" "node_modules/*" "venv/*" "outputs/*" "inputs/*" ".cache/*" ".pytest_cache/*" ".mypy_cache/*" "$BACKUP_DIR/*" "$LOG_DIR/*" "*.DS_Store" "*.pyc" "*.pyo" ".env" "*.sqlite3" >> "$LOG_FILE"
+    -x ".git/*" "*.git*" "__pycache__/*" "node_modules/*" "venv/*" "outputs/*" "inputs/*" ".cache/*" ".pytest_cache/*" ".mypy_cache/*" "$BACKUP_DIR/*" "$LOG_DIR/*" "*.DS_Store" "*.pyc" "*.pyo" ".env" "*.sqlite3" "example-images" >> "$LOG_FILE"
   log "✅ ZIP created: $BACKUP_ZIP"
 else
   log "⏭️ Skipping ZIP backup (flag --no-zip)"
