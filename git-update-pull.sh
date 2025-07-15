@@ -207,8 +207,8 @@ handle_git_pull() {
     pre_pull_hash=$(git rev-parse HEAD)
     log "INFO" "Current version (HEAD) is $pre_pull_hash"
 
-    log "INFO" "Pulling latest changes from origin/main..."
-    run_cmd "git pull origin main --rebase" || {
+    log "INFO" "Pulling latest changes from origin/master..."
+    run_cmd "git pull origin master --rebase" || {
         log "ERROR" "git pull --rebase failed. Restoring stashed changes."
         run_cmd "git stash pop" || log "WARN" "Could not pop stashed changes. Please do it manually."
         die "Please resolve conflicts manually."
@@ -319,8 +319,8 @@ restart_gunicorn_server() {
 }
 
 
-# === [ SECTION 6: MAIN EXECUTION ] ====================================================
-main() {
+# === [ SECTION 6: MASTER EXECUTION ] ====================================================
+master() {
     # Ensure backup directory exists before starting
     mkdir -p "$BACKUP_DIR"
     log "INFO" "=== 🖼️  EzyGallery Sync & Update Script Initialized ==="
@@ -337,5 +337,5 @@ main() {
     log "SUCCESS" "🎉 All done! EzyGallery is updated and running. 💚"
 }
 
-# Kick off the main function
-main
+# Kick off the master function
+master

@@ -134,12 +134,12 @@ log "✅ Markdown diff report saved: $DIFF_REPORT"
 # ============= 🔄 GIT PUSH ================
 if $ENABLE_GIT; then
   log "🔄 Pulling latest changes with --rebase --autostash..."
-  git pull origin main --rebase --autostash 2>>"$LOG_FILE" || {
+  git pull origin master --rebase --autostash 2>>"$LOG_FILE" || {
     log "❌ git pull --rebase failed. Please resolve manually."
     exit 1
   }
-  log "🚀 Pushing to origin/main..."
-  git push origin main 2>>"$LOG_FILE" || {
+  log "🚀 Pushing to origin/master..."
+  git push origin master 2>>"$LOG_FILE" || {
     log "❌ git push failed."
     exit 2
   }
